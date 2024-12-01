@@ -14,6 +14,9 @@ prop_commutativity x y (Positive m) = addMod x y m == addMod y x m
 prop_doubleApply :: (Eq a, Eq b, Arbitrary a, Arbitrary b) => [(a, b)] -> Bool
 prop_doubleApply xs = swapTuple (swapTuple xs) == xs
 
+prop_sameElements :: (Eq a, Arbitrary a) => [a] -> Bool
+prop_sameElements xs = swapTuple (zip xs xs) == zip xs xs
+
 main :: IO ()
 main = do
     putStrLn "FOR addMod:"
@@ -26,5 +29,7 @@ main = do
     putStrLn "FOR swapTuple:"
 
     quickCheck (prop_doubleApply :: [(Int, Char)] -> Bool)
+
+    quickCheck (prop_sameElements :: [Char] -> Bool)
 
     putStrLn "ALL TESTS ARE PASSED"
