@@ -8,9 +8,14 @@ prop_withBuiltinAddMod x y (Positive m) = (addMod x y m) `mod` m == (x + y) `mod
 prop_neutralElement :: Int -> Positive Int -> Bool
 prop_neutralElement x (Positive m) = addMod x 0 m == x `mod` m
 
+prop_commutativity :: Int -> Int -> Positive Int -> Bool
+prop_commutativity x y (Positive m) = addMod x y m == addMod y x m
+
 main :: IO ()
 main = do
     quickCheck prop_withBuiltinAddMod
 
     quickCheck prop_neutralElement
+
+    quickCheck prop_commutativity
     putStrLn "ALL TESTS ARE PASSED"
