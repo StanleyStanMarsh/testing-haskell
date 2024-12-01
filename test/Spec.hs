@@ -11,11 +11,20 @@ prop_neutralElement x (Positive m) = addMod x 0 m == x `mod` m
 prop_commutativity :: Int -> Int -> Positive Int -> Bool
 prop_commutativity x y (Positive m) = addMod x y m == addMod y x m
 
+prop_doubleApply :: (Eq a, Eq b, Arbitrary a, Arbitrary b) => [(a, b)] -> Bool
+prop_doubleApply xs = swapTuple (swapTuple xs) == xs
+
 main :: IO ()
 main = do
+    putStrLn "FOR addMod:"
     quickCheck prop_withBuiltinAddMod
 
     quickCheck prop_neutralElement
 
     quickCheck prop_commutativity
+
+    putStrLn "FOR swapTuple:"
+
+    quickCheck (prop_doubleApply :: [(Int, Char)] -> Bool)
+
     putStrLn "ALL TESTS ARE PASSED"
