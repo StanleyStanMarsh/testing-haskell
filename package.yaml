@@ -2,9 +2,9 @@ name:                testing
 version:             0.1.0.0
 github:              "githubuser/testing"
 license:             BSD-3-Clause
-author:              "Author name here"
+author:              "Astafiev Igor"
 maintainer:          "example@example.com"
-copyright:           "2024 Author name here"
+copyright:           "2024 Astafiev Igor"
 
 extra-source-files:
 - README.md

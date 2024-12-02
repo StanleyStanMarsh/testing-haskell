@@ -17,6 +17,13 @@ prop_doubleApply xs = swapTuple (swapTuple xs) == xs
 prop_sameElements :: (Eq a, Arbitrary a) => [a] -> Bool
 prop_sameElements xs = swapTuple (zip xs xs) == zip xs xs
 
+prop_swapEqualityElements :: (Eq a, Eq b, Arbitrary a, Arbitrary b) => [(a, b)] -> Bool
+prop_swapEqualityElements xs = all checkSwap xs
+  where
+    checkSwap (x, y) = 
+      let swapped = swapTuple [(x, y)]
+      in fst (head swapped) == y && snd (head swapped) == x
+
 main :: IO ()
 main = do
     putStrLn "FOR addMod:"
@@ -31,5 +38,7 @@ main = do
     quickCheck (prop_doubleApply :: [(Int, Char)] -> Bool)
 
     quickCheck (prop_sameElements :: [Char] -> Bool)
+
+    quickCheck (prop_swapEqualityElements :: [(Int, Char)] -> Bool)
 
     putStrLn "ALL TESTS ARE PASSED"
